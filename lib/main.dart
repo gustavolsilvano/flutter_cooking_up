@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cooking_up/categories_screen.dart';
+import 'package:flutter_cooking_up/category_meals_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +27,10 @@ class MyApp extends StatelessWidget {
       title: 'DeliMeals',
       theme: theme.copyWith(
           colorScheme: theme.colorScheme.copyWith(secondary: Colors.amber)),
-      home: const CategoriesScreen(),
+      routes: {
+        '/': (_) => const CategoriesScreen(),
+        CategoryMealsScreen.routeName: (_) => const CategoryMealsScreen(),
+      },
     );
   }
 }
