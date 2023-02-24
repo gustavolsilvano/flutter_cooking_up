@@ -1,42 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cooking_up/models/meal.dart';
+import 'package:flutter_cooking_up/screens/meal_detail_screen.dart';
 import 'package:flutter_cooking_up/widgets/MealItem/meal_icon_text.dart';
 
 class MealItem extends StatelessWidget {
-  final String title;
-  final String imageUrl;
-  final int duration;
-  final ComplexityEnum complexity;
-  final AffordabilityEnum affordability;
+  final Meal meal;
 
-  void selectMeal() {}
+  void selectMeal(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: meal);
+  }
 
-  const MealItem(
-      {required this.title,
-      required this.imageUrl,
-      required this.duration,
-      required this.complexity,
-      required this.affordability,
-      super.key});
+  const MealItem(this.meal, {super.key});
 
   String get complexityText {
-    if (complexity == ComplexityEnum.Simple) return 'Simple';
-    if (complexity == ComplexityEnum.Challenging) return 'Challenging';
-    if (complexity == ComplexityEnum.Hard) return 'Hard';
+    if (meal.complexity == ComplexityEnum.Simple) return 'Simple';
+    if (meal.complexity == ComplexityEnum.Challenging) return 'Challenging';
+    if (meal.complexity == ComplexityEnum.Hard) return 'Hard';
     return 'Unknown';
   }
 
   String get affordabilityText {
-    if (affordability == AffordabilityEnum.Affordable) return 'Affordable';
-    if (affordability == AffordabilityEnum.Pricey) return 'Pricey';
-    if (affordability == AffordabilityEnum.Luxurious) return 'Luxurious';
+    if (meal.affordability == AffordabilityEnum.Affordable) return 'Affordable';
+    if (meal.affordability == AffordabilityEnum.Pricey) return 'Pricey';
+    if (meal.affordability == AffordabilityEnum.Luxurious) return 'Luxurious';
     return 'Unknown';
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: selectMeal,
+      onTap: () => selectMeal(context),
       child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -51,7 +44,7 @@ class MealItem extends StatelessWidget {
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15)),
                     child: Image.network(
-                      imageUrl,
+                      meal.imageUrl,
                       height: 250,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -66,7 +59,7 @@ class MealItem extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                       child: Text(
-                        title,
+                        meal.title,
                         style:
                             const TextStyle(fontSize: 26, color: Colors.white),
                         softWrap: true,
@@ -82,7 +75,7 @@ class MealItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     MealIconText(
-                      label: '$duration min',
+                      label: '${meal.duration} min',
                       icon: Icons.schedule,
                     ),
                     MealIconText(
