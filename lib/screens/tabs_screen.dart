@@ -11,7 +11,6 @@ class MainTab {
 }
 
 class TabsScreen extends StatefulWidget {
-  static String routeName = TabsScreen.routeName;
   const TabsScreen({super.key});
 
   @override
