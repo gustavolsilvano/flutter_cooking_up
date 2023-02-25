@@ -7,11 +7,11 @@ class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
 
   void onTapMeals(BuildContext ctx) {
-    Navigator.of(ctx).pushNamed('/');
+    Navigator.of(ctx).pushReplacementNamed('/');
   }
 
   void onTapSettings(BuildContext ctx) {
-    Navigator.of(ctx).pushNamed(FiltersScreen.routeName);
+    Navigator.of(ctx).pushReplacementNamed(FiltersScreen.routeName);
   }
 
   @override
