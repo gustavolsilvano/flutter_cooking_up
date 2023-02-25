@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cooking_up/screens/categories_screen.dart';
 import 'package:flutter_cooking_up/screens/favorites_screen.dart';
+import 'package:flutter_cooking_up/widgets/Drawer/main_drawer.dart';
 
 class MainTab {
   final Widget page;
@@ -10,6 +11,7 @@ class MainTab {
 }
 
 class TabsScreen extends StatefulWidget {
+  static String routeName = TabsScreen.routeName;
   const TabsScreen({super.key});
 
   @override
@@ -36,6 +38,7 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex].title),
       ),
+      drawer: const MainDrawer(),
       body: _pages[_selectedPageIndex].page,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
