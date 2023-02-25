@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: theme.copyWith(
           colorScheme: theme.colorScheme.copyWith(secondary: Colors.amber)),
       routes: {
-        TabsScreen.routeName: (_) => const TabsScreen(),
+        '/': (_) => const TabsScreen(),
         CategoryMealsScreen.routeName: (_) => const CategoryMealsScreen(),
         MealDetailScreen.routeName: (_) => const MealDetailScreen(),
         FiltersScreen.routeName: (_) => const FiltersScreen()

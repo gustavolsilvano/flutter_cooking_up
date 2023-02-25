@@ -7,7 +7,7 @@ class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
 
   void onTapMeals(BuildContext ctx) {
-    Navigator.of(ctx).pushNamed(TabsScreen.routeName);
+    Navigator.of(ctx).pushNamed('/');
   }
 
   void onTapSettings(BuildContext ctx) {
