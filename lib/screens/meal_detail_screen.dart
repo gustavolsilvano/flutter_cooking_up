@@ -8,6 +8,10 @@ class MealDetailScreen extends StatelessWidget {
 
   const MealDetailScreen({super.key});
 
+  void onGoBack(BuildContext ctx, String mealId) {
+    Navigator.of(ctx).pop(mealId);
+  }
+
   @override
   Widget build(BuildContext context) {
     final meal = ModalRoute.of(context)?.settings.arguments as Meal;
@@ -59,6 +63,9 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => onGoBack(context, meal.id),
+          child: const Icon(Icons.delete)),
     );
   }
 }

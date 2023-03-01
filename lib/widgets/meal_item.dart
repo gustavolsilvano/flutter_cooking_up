@@ -5,12 +5,20 @@ import 'package:flutter_cooking_up/widgets/MealItem/meal_icon_text.dart';
 
 class MealItem extends StatelessWidget {
   final Meal meal;
+  final Function removeItem;
 
   void selectMeal(BuildContext ctx) {
-    Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: meal);
+    Navigator.of(ctx)
+        .pushNamed(MealDetailScreen.routeName, arguments: meal)
+        .then((value) {
+      if (value != null) {
+        removeItem(value);
+      }
+      print(value);
+    });
   }
 
-  const MealItem(this.meal, {super.key});
+  const MealItem(this.meal, this.removeItem, {super.key});
 
   String get complexityText {
     if (meal.complexity == ComplexityEnum.Simple) return 'Simple';
