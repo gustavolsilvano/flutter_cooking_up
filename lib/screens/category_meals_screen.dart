@@ -58,7 +58,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
       String message = 'Added to Favorite';
       if (widget.favoriteMeals.any((mealInt) => mealInt.id == meal.id)) {
         widget.favoriteMeals.removeWhere((mealInt) => mealInt.id == meal.id);
-        message = 'Removing from Favorite';
+        message = 'Removed from Favorite';
       } else {
         widget.favoriteMeals.add(meal);
       }
