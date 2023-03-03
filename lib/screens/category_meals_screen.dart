@@ -37,10 +37,10 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
     displayedMeals = DUMMY_MEALS.where((meal) {
       if (!hasFilter) return meal.categoryIds.contains(categoryId);
       return meal.categoryIds.contains(categoryId) &&
-          ((filterMap['isGlutenFree']! && meal.isGlutenFree) ||
-              (filterMap['isVegan']! && meal.isVegan) ||
-              (filterMap['isVegetarian']! && meal.isVegetarian) ||
-              (filterMap['isLactoseFree']! && meal.isLactoseFree));
+          ((filterMap[FilterTypeEnum.isGlutenFree]! && meal.isGlutenFree) ||
+              (filterMap[FilterTypeEnum.isVegan]! && meal.isVegan) ||
+              (filterMap[FilterTypeEnum.isVegetarian]! && meal.isVegetarian) ||
+              (filterMap[FilterTypeEnum.isLactoseFree]! && meal.isLactoseFree));
     }).toList();
     _loadedInitData = true;
     super.didChangeDependencies();
