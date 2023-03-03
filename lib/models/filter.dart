@@ -10,6 +10,7 @@ class Filter {
   String description;
   bool value;
   FilterTypeEnum type;
+  String key;
 
-  Filter(this.label, this.description, this.value, this.type);
+  Filter(this.label, this.description, this.value, this.type, this.key);
 }

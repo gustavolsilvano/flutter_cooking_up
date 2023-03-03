@@ -5,28 +5,30 @@ import 'package:flutter_cooking_up/widgets/Filter/filter.dart';
 
 class FiltersScreen extends StatefulWidget {
   static String routeName = '/filters';
-  const FiltersScreen({super.key});
+  final List<Filter> filters;
+  final Function(BuildContext) setFilters;
+
+  const FiltersScreen(this.filters, this.setFilters, {super.key});
 
   @override
   State<FiltersScreen> createState() => _FiltersScreenState();
 }
 
 class _FiltersScreenState extends State<FiltersScreen> {
-  List<Filter> filters = [
-    Filter('Gluten Free', 'Only include Gluten Free meals', false,
-        FilterTypeEnum.GlutenFree),
-    Filter('Vegetarian', 'Only include Vegeterian meals', false,
-        FilterTypeEnum.Vegeterian),
-    Filter('Vegan', 'Only include Vegan meals', false, FilterTypeEnum.Vegan),
-    Filter('Lactose Free', 'Only include Lactose Free meals', false,
-        FilterTypeEnum.LactoseFree),
-  ];
+  late Function(BuildContext) _setFilters;
 
   void _changeFilter(bool newValue, FilterTypeEnum type) {
-    int filterIndex = filters.indexWhere((filter) => filter.type == type);
+    int filterIndex =
+        widget.filters.indexWhere((filter) => filter.type == type);
     setState(() {
-      filters[filterIndex].value = newValue;
+      widget.filters[filterIndex].value = newValue;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _setFilters = widget.setFilters;
   }
 
   @override
@@ -44,11 +46,14 @@ class _FiltersScreenState extends State<FiltersScreen> {
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(10),
-                children: filters
+                children: widget.filters
                     .map((filter) => FilterSwitch(filter, _changeFilter))
                     .toList(),
               ),
-            )
+            ),
+            ElevatedButton(
+                onPressed: () => _setFilters(context),
+                child: const Text('Save Filters'))
           ],
         ));
   }

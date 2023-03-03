@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cooking_up/dummy_data.dart';
+import 'package:flutter_cooking_up/models/filter.dart';
 import 'package:flutter_cooking_up/models/meal.dart';
 import 'package:flutter_cooking_up/widgets/meal_item.dart';
 
 class CategoryMealsScreen extends StatefulWidget {
   static const routeName = '/category-meals';
-  const CategoryMealsScreen({super.key});
+
+  List<Filter> filters;
+  CategoryMealsScreen(this.filters, {super.key});
 
   @override
   State<CategoryMealsScreen> createState() => _CategoryMealsScreenState();
@@ -19,12 +22,25 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
   @override
   void didChangeDependencies() {
     if (_loadedInitData) return;
+    Map<String, bool> filterMap = {};
+    bool hasFilter = false;
+
+    widget.filters.forEach((filter) {
+      if (filter.value) hasFilter = true;
+      filterMap[filter.key] = filter.value;
+    });
+
     final routeArgs =
         ModalRoute.of(context)?.settings.arguments as Map<String, String>;
     final categoryId = routeArgs['id'];
     categoryTitle = routeArgs['title'] ?? '';
     displayedMeals = DUMMY_MEALS.where((meal) {
-      return meal.categoryIds.contains(categoryId);
+      if (!hasFilter) return meal.categoryIds.contains(categoryId);
+      return meal.categoryIds.contains(categoryId) &&
+          ((filterMap['isGlutenFree']! && meal.isGlutenFree) ||
+              (filterMap['isVegan']! && meal.isVegan) ||
+              (filterMap['isVegetarian']! && meal.isVegetarian) ||
+              (filterMap['isLactoseFree']! && meal.isLactoseFree));
     }).toList();
     _loadedInitData = true;
     super.didChangeDependencies();
