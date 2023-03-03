@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cooking_up/models/filter.dart';
+import 'package:flutter_cooking_up/models/meal.dart';
 import 'package:flutter_cooking_up/screens/categories_screen.dart';
 import 'package:flutter_cooking_up/screens/category_meals_screen.dart';
 import 'package:flutter_cooking_up/screens/filters_screen.dart';
@@ -33,6 +34,8 @@ class _MyAppState extends State<MyApp> {
         FilterTypeEnum.isLactoseFree),
   ];
 
+  List<Meal> favoriteMeals = [];
+
   void _setFilters(BuildContext context) {
     Navigator.of(context).pushReplacementNamed('/');
   }
@@ -56,8 +59,9 @@ class _MyAppState extends State<MyApp> {
       theme: theme.copyWith(
           colorScheme: theme.colorScheme.copyWith(secondary: Colors.amber)),
       routes: {
-        '/': (_) => const TabsScreen(),
-        CategoryMealsScreen.routeName: (_) => CategoryMealsScreen(filters),
+        '/': (_) => TabsScreen(favoriteMeals),
+        CategoryMealsScreen.routeName: (_) =>
+            CategoryMealsScreen(filters, favoriteMeals),
         MealDetailScreen.routeName: (_) => const MealDetailScreen(),
         FiltersScreen.routeName: (_) => FiltersScreen(filters, _setFilters)
       },

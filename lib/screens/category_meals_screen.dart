@@ -7,8 +7,9 @@ import 'package:flutter_cooking_up/widgets/meal_item.dart';
 class CategoryMealsScreen extends StatefulWidget {
   static const routeName = '/category-meals';
 
+  List<Meal> favoriteMeals;
   List<Filter> filters;
-  CategoryMealsScreen(this.filters, {super.key});
+  CategoryMealsScreen(this.filters, this.favoriteMeals, {super.key});
 
   @override
   State<CategoryMealsScreen> createState() => _CategoryMealsScreenState();
@@ -52,14 +53,30 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
     });
   }
 
+  void _toggleToFavorite(Meal meal) {
+    setState(() {
+      if (widget.favoriteMeals.any((mealInt) => mealInt.id == meal.id)) {
+        return widget.favoriteMeals
+            .removeWhere((mealInt) => mealInt.id == meal.id);
+      }
+      return widget.favoriteMeals.add(meal);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(categoryTitle ?? ''),
+        title: Text(categoryTitle),
       ),
       body: ListView.builder(
-        itemBuilder: (_, index) => MealItem(displayedMeals[index], _removeItem),
+        itemBuilder: (_, index) {
+          Meal currentMeal = displayedMeals[index];
+          bool isFavorite =
+              widget.favoriteMeals.any((meal) => meal.id == currentMeal.id);
+          return MealItem(
+              currentMeal, _removeItem, _toggleToFavorite, isFavorite);
+        },
         itemCount: displayedMeals.length,
       ),
     );

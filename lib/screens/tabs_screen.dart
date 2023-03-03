@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cooking_up/models/meal.dart';
 import 'package:flutter_cooking_up/screens/categories_screen.dart';
 import 'package:flutter_cooking_up/screens/favorites_screen.dart';
 import 'package:flutter_cooking_up/widgets/Drawer/main_drawer.dart';
@@ -11,17 +12,25 @@ class MainTab {
 }
 
 class TabsScreen extends StatefulWidget {
-  const TabsScreen({super.key});
+  List<Meal> favoriteMeals;
+
+  TabsScreen(this.favoriteMeals, {super.key});
 
   @override
   State<TabsScreen> createState() => _TabsScreenState();
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  final List<MainTab> _pages = [
-    MainTab(const CategoriesScreen(), 'Categories'),
-    MainTab(const FavoritesScreen(), 'Your Favorites'),
-  ];
+  List<MainTab> _pages = [];
+
+  @override
+  void initState() {
+    _pages = [
+      MainTab(const CategoriesScreen(), 'Categories'),
+      MainTab(FavoritesScreen(widget.favoriteMeals), 'Your Favorites'),
+    ];
+    super.initState();
+  }
 
   int _selectedPageIndex = 0;
 
@@ -48,9 +57,9 @@ class _TabsScreenState extends State<TabsScreen> {
         type: BottomNavigationBarType.fixed,
         items: [
           const BottomNavigationBarItem(
-              icon: const Icon(Icons.star), label: 'Favorites'),
-          const BottomNavigationBarItem(
               icon: const Icon(Icons.category), label: 'Categories'),
+          const BottomNavigationBarItem(
+              icon: const Icon(Icons.star), label: 'Favorites'),
         ],
       ),
     );
