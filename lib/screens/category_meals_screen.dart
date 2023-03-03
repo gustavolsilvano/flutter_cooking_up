@@ -22,12 +22,12 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
   @override
   void didChangeDependencies() {
     if (_loadedInitData) return;
-    Map<String, bool> filterMap = {};
+    Map<FilterTypeEnum, bool> filterMap = {};
     bool hasFilter = false;
 
     widget.filters.forEach((filter) {
       if (filter.value) hasFilter = true;
-      filterMap[filter.key] = filter.value;
+      filterMap[filter.type] = filter.value;
     });
 
     final routeArgs =

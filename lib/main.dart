@@ -20,13 +20,17 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   List<Filter> filters = [
     Filter('Gluten Free', 'Only include Gluten Free meals', false,
-        FilterTypeEnum.GlutenFree, 'isGlutenFree'),
+        FilterTypeEnum.isGlutenFree),
     Filter('Vegetarian', 'Only include Vegeterian meals', false,
-        FilterTypeEnum.Vegeterian, 'isVegetarian'),
-    Filter('Vegan', 'Only include Vegan meals', false, FilterTypeEnum.Vegan,
-        'isVegan'),
+        FilterTypeEnum.isVegetarian),
+    Filter(
+      'Vegan',
+      'Only include Vegan meals',
+      false,
+      FilterTypeEnum.isVegan,
+    ),
     Filter('Lactose Free', 'Only include Lactose Free meals', false,
-        FilterTypeEnum.LactoseFree, 'isLactoseFree'),
+        FilterTypeEnum.isLactoseFree),
   ];
 
   void _setFilters(BuildContext context) {

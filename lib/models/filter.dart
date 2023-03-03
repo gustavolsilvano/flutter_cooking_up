@@ -1,8 +1,8 @@
 enum FilterTypeEnum {
-  GlutenFree,
-  LactoseFree,
-  Vegeterian,
-  Vegan,
+  isGlutenFree,
+  isLactoseFree,
+  isVegetarian,
+  isVegan,
 }
 
 class Filter {
@@ -10,7 +10,6 @@ class Filter {
   String description;
   bool value;
   FilterTypeEnum type;
-  String key;
 
-  Filter(this.label, this.description, this.value, this.type, this.key);
+  Filter(this.label, this.description, this.value, this.type);
 }
