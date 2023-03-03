@@ -13,7 +13,7 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
-  void _toggleToFavorite(Meal meal) {
+  void _toggleFavorite(Meal meal) {
     setState(() {
       if (widget.favoriteMeals.any((mealInt) => mealInt.id == meal.id)) {
         return widget.favoriteMeals
@@ -32,7 +32,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             )
           : ListView.builder(
               itemBuilder: (_, index) => MealItem(
-                  widget.favoriteMeals[index], null, _toggleToFavorite, true),
+                  widget.favoriteMeals[index], null, _toggleFavorite, true),
               itemCount: widget.favoriteMeals.length,
             ),
     );

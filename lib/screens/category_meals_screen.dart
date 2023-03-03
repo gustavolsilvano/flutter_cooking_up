@@ -53,13 +53,19 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
     });
   }
 
-  void _toggleToFavorite(Meal meal) {
+  void _toggleFavorite(Meal meal) {
     setState(() {
+      String message = 'Added to Favorite';
       if (widget.favoriteMeals.any((mealInt) => mealInt.id == meal.id)) {
-        return widget.favoriteMeals
-            .removeWhere((mealInt) => mealInt.id == meal.id);
+        widget.favoriteMeals.removeWhere((mealInt) => mealInt.id == meal.id);
+        message = 'Removing from Favorite';
+      } else {
+        widget.favoriteMeals.add(meal);
       }
-      return widget.favoriteMeals.add(meal);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message),
+      ));
     });
   }
 
@@ -75,7 +81,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
           bool isFavorite =
               widget.favoriteMeals.any((meal) => meal.id == currentMeal.id);
           return MealItem(
-              currentMeal, _removeItem, _toggleToFavorite, isFavorite);
+              currentMeal, _removeItem, _toggleFavorite, isFavorite);
         },
         itemCount: displayedMeals.length,
       ),
